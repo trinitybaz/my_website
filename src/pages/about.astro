@@ -1,33 +1,98 @@
 ---
-const title = "About";
-const interests = ["software", "music", "food"];
----
+import '../styles/global.css';
+import '@components/Navigation.astro';
+import BaseLayout from "@layouts/BaseLayout.astro";
 
-<html lang="en">
+const interests = ["Software", "Music", "Food"];
+
+const identity = {
+  firstName: "Trinity",
+  country: "USA",
+  hobbies: interests
+}
+
+const skills = ["Programming", "Cooking", "Music Production"];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "magenta";
+const fontWeight = "bold";
+const textCase = "uppercase";
+
+const pageTitle = "About Me";
+---
+<BaseLayout pageTitle={pageTitle}>
+  <style is:global define:vars={{skillColor, fontWeight, textCase}}>
+    /* style by html tag */
+    h1 {
+      color: rgb(187, 62, 62);
+      font-size: 3rem;
+    }
+
+    /* style by css class*/
+    .skill {
+      color: var(--skillColor);
+      font-weight: var(--fontWeight);
+      text-transform: var(--textCase);
+      font-weight: bold;
+    }
+  </style>
+  <p>Here are a few facts about me:</p>
+  <ul>
+    <li>My name is {identity.firstName}.</li>
+    <li>I live in {identity.country}.</li>
+    {identity.hobbies.length >= 2 &&
+      <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+    }
+  </ul>
+  <p>My skills are:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+
+  {happy && <p>I am happy to be learning Astro!</p>}
+
+  {finished && <p>I finished this tutorial!</p>}
+
+  {goal === 3 && !finished && <p>My goal is to finish in 3 days.</p>}
+</BaseLayout>
+<!-- <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+
+    <style define:vars={{skillColor, fontWeight, textCase}}>
+      /* style by html tag */
+      h1 {
+        color: rgb(187, 62, 62);
+        font-size: 3rem;
+      }
+
+      /* style by css class*/
+      .skill {
+        color: var(--skillColor);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+        font-weight: bold;
+      }
+    </style>
   </head>
 
   <body>
     <main>
+      <Header />
+
       <h1>{title}</h1>
-      <a href="/">Home</a>
-      <br>
-      <a href="/about/">About</a>
-      <br>
-      <a href="/blog/">Blog</a>
 
-      <p>
-        Software engineer, musician, and generally curious person.
-      </p>
 
-      <ul>
-        {interests.map((interest) => (
-          <li>{interest}</li>
-        ))}
-      </ul>
+
+      <Footer />
+      <script>
+        import "../scripts/menu.js";
+      </script>
     </main>
   </body>
-</html>
+</html> -->

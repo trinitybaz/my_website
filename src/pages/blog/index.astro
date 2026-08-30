@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+const pageTitle = "Blog";
+const allPosts = Object.values(import.meta.glob('./posts/*.md', {eager: true}));
+const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+---
+<BaseLayout pageTitle={pageTitle}>
+  <h2><a id="all-posts" href="/blog/posts/">All Posts</a></h2>
+  <h2>Tags:</h2>
+  <div id="tags">
+    {tags.map((tag) => (
+      <p class="tag"><a href={`/blog/tags/${tag}`}>{tag}</a></p>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  a {
+    color: #00139f;
+  }
+
+  #all-posts {
+    margin: 0.2em;
+    border: solid 2px #0d0f46;
+    border-radius: .5em;
+    padding: .5em 1em;
+    background-color: #F8FCFD;
+  }
+
+  #tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.2em;
+    border: dotted 1px rgb(13, 16, 14);
+    border-radius: .5em;
+    padding: .25em .7em;
+    font-size: 1.15em;
+    background-color: #F8FCFD;
+  }
+</style>
